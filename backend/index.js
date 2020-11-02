@@ -19,7 +19,7 @@ app.use("/users", Users);
 app.use("/api", mySqlRoute);
 
 db.sync({
-  force: true,
+  force: false,
 }).then(() => {
   app.listen(PORT, () => {
     console.log("Server started at http://localhost:" + PORT);

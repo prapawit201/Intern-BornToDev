@@ -32,6 +32,45 @@ class Main extends Component {
             Add To-Do-List
           </button>
         </div>
+        <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+          <div class="row" style={{ marginTop: "150px" }}>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#FBF1D5",
+                height: "500px",
+                width: "300px",
+              }}
+            >
+              .col-sm-4
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+              </ul>
+            </div>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#D1EAF5",
+                height: "500px",
+              }}
+            >
+              .col-sm-4
+            </div>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#FCDEE2",
+                height: "500px",
+              }}
+            >
+              .col-sm-4
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

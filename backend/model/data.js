@@ -2,16 +2,23 @@ const Sequelize = require("sequelize");
 const db = require("../database/config");
 
 const Account = db.define(
-  "Test",
+  "Data",
   {
-    accountId: {
+    dataId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    fName: {
+    dataName: {
       type: Sequelize.STRING,
+    },
+    dataValue: {
+      type: Sequelize.STRING,
+    },
+    dataStatus: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true,
     },
   },
   {

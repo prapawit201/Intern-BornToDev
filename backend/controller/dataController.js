@@ -1,26 +1,26 @@
 var sequelize = require("../database/config");
-var Account = require("../model/account");
+var Data = require("../model/data");
 
 const controllers = {};
 sequelize.sync();
 
 controllers.delete = async (req, res) => {
-  const { accountId } = req.body;
-  const del = await Account.destroy({
-    where: { accountId: accountId },
+  const { dataId } = req.body;
+  const del = await Data.destroy({
+    where: { dataId: dataId },
   });
   res.json({ success: true, deleted: del, message: "Deleted successful" });
 };
 
 controllers.update = async (req, res) => {
-  const { accountId } = req.params;
-  const { fName } = req.body;
-  const data = await Account.update(
+  const { dataId } = req.params;
+  const { dataName } = req.body;
+  const data = await Data.update(
     {
-      fName: fName,
+      dataName: dataName,
     },
     {
-      where: { accountId: accountId },
+      where: { dataId: dataId },
     }
   )
     .then(function (data) {
@@ -33,9 +33,9 @@ controllers.update = async (req, res) => {
 };
 
 controllers.get = async (req, res) => {
-  const { accountId } = req.params;
-  const data = await Account.findAll({
-    where: { accountId: accountId },
+  const { dataId } = req.params;
+  const data = await Data.findAll({
+    where: { dataId: dataId },
   })
     .then(function (data) {
       return data;
@@ -48,8 +48,10 @@ controllers.get = async (req, res) => {
 
 controllers.create = async (req, res) => {
   // create
-  const data = await Account.create({
-    fName: req.body.fName,
+  const data = await Data.create({
+    dataName: req.body.dataName,
+    dataValue: req.body.dataValue,
+    dataStatus: req.body.status,
   })
 
     .then(function (data) {
@@ -68,7 +70,7 @@ controllers.create = async (req, res) => {
 };
 
 controllers.list = async (req, res) => {
-  const data = await Account.findAll({})
+  const data = await Data.findAll({})
     .then(function (data) {
       return data;
     })
