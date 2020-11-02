@@ -5,3 +5,13 @@
 #test {
   color: blue;
 }
+#picHome{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  width: 50%;
+}
+#enter{
+  margin-bottom: 100px;
+}
