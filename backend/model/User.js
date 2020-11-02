@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../database/config");
 
 const Account = db.define(
-  "Test",
+  "User",
   {
     accountId: {
       type: Sequelize.INTEGER,
@@ -13,10 +13,15 @@ const Account = db.define(
     fName: {
       type: Sequelize.STRING,
     },
+    username: {
+      type: Sequelize.STRING,
+    },
+    password: {
+      type: Sequelize.STRING,
+    },
   },
   {
     freezeTableName: true,
-    timestamps: true,
   }
 );
 module.exports = Account;
