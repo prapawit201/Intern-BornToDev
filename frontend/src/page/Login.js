@@ -1,6 +1,5 @@
 import React from "react";
 import "../App.css";
-import Navbar from "../component/Navbar";
 import { Button } from "reactstrap";
 import Swal from "sweetalert2";
 import { login } from "../component/UserFunction";
@@ -44,7 +43,6 @@ export default class main extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
         <div id="container">
           <div
             class="col-6 col-md-4"
