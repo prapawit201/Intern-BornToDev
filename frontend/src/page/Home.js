@@ -1,5 +1,6 @@
 // import React from "react";
 import React, { Fragment } from "react";
+import {Link} from'react-router-dom'
 import Navbar from "../component/Navbar"
 import pic from "../image/Scrum.png"
 import "../App.css";
@@ -7,11 +8,13 @@ export default class OutlinedButtons extends React.Component {
   render() {
     return (
       <div>
-        <Navbar/>
+        {/* <Navbar/> */}
         <center><img id="picHome"src={pic}/></center>
         <div className="container">
           <section id="enter">
-          <button type="button" class="btn btn-outline-info">Enter to Website</button>
+          <Link type="button" class="btn btn-outline-info" to="/main">
+            Enter to Website
+          </Link>
           </section>
         </div>
       </div>
