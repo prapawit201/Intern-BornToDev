@@ -45,6 +45,9 @@ export default class main extends React.Component {
     return (
       <div>
         <div id="container">
+          <center>
+            <img src={pic2} width="400px" height="400px" />
+          </center>
           <div
             class="col-6 col-md-4"
             style={{
@@ -52,11 +55,10 @@ export default class main extends React.Component {
               width: "500px",
               height: "500px",
               padding: "2%",
-              marginTop: "100px",
             }}
           >
             <form noValidate onSubmit={this.onSubmit}>
-              <div className="form-group" style={{ marginTop: "150px" }}>
+              <div className="form-group" style={{}}>
                 <label htmlFor="username">Username : </label>
                 <input
                   type="username"
@@ -80,7 +82,7 @@ export default class main extends React.Component {
               </div>
               <center>
                 {" "}
-                <Button type="submit" outline color="info">
+                <Button type="submit" outline color="success">
                   Login
                 </Button>
                 {"  "}
