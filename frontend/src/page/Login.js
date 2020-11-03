@@ -4,6 +4,7 @@ import { Button } from "reactstrap";
 import Swal from "sweetalert2";
 import { login } from "../component/UserFunction";
 import { Link } from "react-router-dom";
+import pic2 from "../image/pic2.jpeg";
 export default class main extends React.Component {
   constructor() {
     super();
@@ -48,13 +49,14 @@ export default class main extends React.Component {
             class="col-6 col-md-4"
             style={{
               marginLeft: "33%",
-              // boxShadow: "0 30px 50px rgba(0,0,0,.2)",
+              width: "500px",
+              height: "500px",
               padding: "2%",
-              // borderRadius: "5px",
+              marginTop: "100px",
             }}
           >
             <form noValidate onSubmit={this.onSubmit}>
-              <div className="form-group">
+              <div className="form-group" style={{ marginTop: "150px" }}>
                 <label htmlFor="username">Username : </label>
                 <input
                   type="username"
@@ -81,11 +83,8 @@ export default class main extends React.Component {
                 <Button type="submit" outline color="info">
                   Login
                 </Button>
-                <Link
-                  to="/register"
-                  type="button"
-                  class="btn btn-outline-light"
-                >
+                {"  "}
+                <Link to="/register" type="button" class="btn btn-outline-info">
                   Register
                 </Link>
               </center>
