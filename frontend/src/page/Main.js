@@ -5,7 +5,9 @@ import { Table, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "../config/base_axios";
 import DataAdd from "../component/DataAdd";
+import Swal from "sweetalert2/dist/sweetalert2.js";
 
+import "../App.css";
 class Main extends Component {
   constructor() {
     super();
@@ -54,11 +56,9 @@ class Main extends Component {
             {data.dataName}{" "}
             <span style={{ float: "right" }}>
               <Link
-                
                 type="button"
                 class="btn btn-outline-secondary"
                 to={"/edit/data/" + data.dataId}
-
                 style={{}}
               >
                 <svg
@@ -77,7 +77,12 @@ class Main extends Component {
                 </svg>
               </Link>
               &nbsp;
-              <button type="button" class="btn btn-outline-danger" style={{}}>
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                style={{}}
+                onClick={() => this.onDelete(data.dataId)}
+              >
                 <svg
                   width="1em"
                   height="1em"
@@ -132,9 +137,9 @@ class Main extends Component {
     return (
       <div>
         <Navbar />{" "}
-        <div style={{ marginRight: "100px", marginTop:"30px" }}>
+        <div style={{ marginRight: "100px", marginTop: "30px" }}>
           {" "}
-          <Row >
+          <Row>
             <Col sm="12">
               <DataAdd />
             </Col>
@@ -150,17 +155,11 @@ class Main extends Component {
                 width: "300px",
               }}
             >
-              .col-sm-4
+              <center>
+                <span id="toDo">To Do</span>
+              </center>
+              <hr />
               {this.listData()}
-            </div>
-            <div
-              class="col-sm-4"
-              style={{
-                backgroundColor: "#D1EAF5",
-                height: "500px",
-              }}
-            >
-              .col-sm-4
             </div>
             <div
               class="col-sm-4"
@@ -169,12 +168,59 @@ class Main extends Component {
                 height: "500px",
               }}
             >
-              .col-sm-4
+              <center>
+                <span id="toDo">Doing</span>
+              </center>
+              <hr />
+            </div>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#E2D0DC",
+                height: "500px",
+              }}
+            >
+              <center>
+                <span id="toDo">Done</span>
+              </center>
+              <hr />
             </div>
           </div>
         </div>
       </div>
     );
+  }
+  async onDelete(dataId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will not be able to recover this Data",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it",
+    }).then((result) => {
+      if (result.value) {
+        this.sendDelete(dataId);
+        this.fetchData();
+        this.listData();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your Data is safe :)", "error");
+      }
+    });
+  }
+  sendDelete(userId) {
+    axios
+      .post("/api/delete/data", {
+        dataId: userId,
+      })
+      .then((response) => {
+        if (response.data.success) {
+          Swal.fire("Deleted!", "Your Data has been deleted.", "success");
+        }
+      })
+      .catch((error) => {
+        alert("Error 325 ");
+      });
   }
 }
 

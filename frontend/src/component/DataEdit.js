@@ -78,20 +78,25 @@ class SettingDriverEdit extends React.Component {
               />
             </div>
           </div>
+          <div style={{}}>
+            <span style={{ marginLeft: "900px" }}>
+              {" "}
+              <Link to="/main">
+                <button type="button" class="btn btn-secondary">
+                  Back
+                </button>
+              </Link>
+              &nbsp;
+              <button
+                type="submit"
+                class="btn btn-info"
+                onClick={() => this.sendUpdate()}
+              >
+                Update
+              </button>
+            </span>
+          </div>
         </div>
-        <Link to="/main">
-          <button type="button" class="btn btn-secondary">
-            Back
-          </button>
-        </Link>
-        &nbsp;
-        <button
-          type="submit"
-          class="btn btn-info"
-          onClick={() => this.sendUpdate()}
-        >
-          Update
-        </button>
       </div>
     );
   }
@@ -101,7 +106,6 @@ class SettingDriverEdit extends React.Component {
     const datapost = {
       dataName: this.state.dataName,
       dataValue: this.state.dataValue,
-
     };
 
     base_axios

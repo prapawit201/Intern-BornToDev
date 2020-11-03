@@ -12,7 +12,6 @@ class DataAdd extends React.Component {
   }
   render() {
     return (
-
       <div>
         <div class="text-right" style={{ marginTop: "10px" }}>
           <button

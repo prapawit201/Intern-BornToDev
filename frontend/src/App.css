@@ -15,3 +15,18 @@
 #enter {
   margin-bottom: 100px;
 }
+#toDo {
+  font-size: 70px;
+  font-family: "Abel", sans-serif;
+  color: #86a5c4;
+}
+#toDo1 {
+  font-size: 70px;
+  font-family: "Abel", sans-serif;
+  color: #ffc6cf;
+}
+#toDo2 {
+  font-size: 70px;
+  font-family: "Abel", sans-serif;
+  color: #86a5c4;
+}
