@@ -12,6 +12,26 @@ controllers.delete = async (req, res) => {
   res.json({ success: true, deleted: del, message: "Deleted successful" });
 };
 
+controllers.updateStatus = async (req, res) => {
+  const { dataId } = req.params;
+  const { dataStatus } = req.body;
+  const data = await Data.update(
+    {
+      dataStatus: dataStatus,
+    },
+    {
+      where: { dataId: dataId },
+    }
+  )
+    .then(function (data) {
+      return data;
+    })
+    .catch((error) => {
+      return error;
+    });
+  res.json({ success: true, data: data, message: "Updated successful" });
+};
+
 controllers.update = async (req, res) => {
   const { dataId } = req.params;
   const { dataName } = req.body;

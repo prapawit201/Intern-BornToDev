@@ -16,7 +16,7 @@ const Account = db.define(
     dataValue: {
       type: Sequelize.STRING,
     },
-    
+
     dataStatus: {
       type: Sequelize.BOOLEAN,
       defaultValue: true,

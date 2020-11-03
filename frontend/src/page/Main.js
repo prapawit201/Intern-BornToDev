@@ -28,6 +28,8 @@ class Main extends Component {
       username: decoded.username,
     });
     this.fetchData();
+    this.loadDataStatusDo();
+    this.loadDataStatusDoing();
   }
 
   fetchData = () => {
@@ -44,9 +46,6 @@ class Main extends Component {
           this.setState({ Data: data });
         }
       });
-    {
-      this.listData();
-    }
   };
   listData = () => {
     return this.state.Data.map((data) => {
@@ -107,6 +106,7 @@ class Main extends Component {
                 aria-expanded="false"
                 aria-controls="collapseExample"
                 style={{}}
+                onClick={() => this.onUpdate(data.dataId)}
               >
                 <svg
                   width="1em"
@@ -136,17 +136,14 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <Navbar />{" "}
-        <div style={{ marginRight: "100px", marginTop: "30px" }}>
-          {" "}
-          <Row>
-            <Col sm="12">
-              <DataAdd />
-            </Col>
-          </Row>
+        <Navbar />
+        <div className="" style={{ marginRight: "150px", marginTop: "50px" }}>
+          <span>
+            <DataAdd />
+          </span>
         </div>
         <div style={{ marginLeft: "50px", marginRight: "50px" }}>
-          <div class="row" style={{ marginTop: "50px" }}>
+          <div class="row" style={{ marginTop: "30px" }}>
             <div
               class="col-sm-4"
               style={{
@@ -159,7 +156,8 @@ class Main extends Component {
                 <span id="toDo">To Do</span>
               </center>
               <hr />
-              {this.listData()}
+              {/* {this.listData()} */}
+              {this.loadDataStatusDo()}
             </div>
             <div
               class="col-sm-4"
@@ -172,6 +170,7 @@ class Main extends Component {
                 <span id="toDo">Doing</span>
               </center>
               <hr />
+              {this.loadDataStatusDoing()}
             </div>
             <div
               class="col-sm-4"
@@ -190,13 +189,282 @@ class Main extends Component {
       </div>
     );
   }
+  loadDataStatusDo() {
+    return this.state.Data.map((data) => {
+      let status = data.dataStatus;
+      if (status == 1) {
+        return (
+          <ul class="list-group">
+            <li class="list-group-item">
+              {data.dataName}{" "}
+              <span style={{ float: "right" }}>
+                <Link
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  to={"/edit/data/" + data.dataId}
+                  style={{}}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-pencil-square"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                    />
+                  </svg>
+                </Link>
+                &nbsp;
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  style={{}}
+                  onClick={() => this.onDelete(data.dataId)}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-trash"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                    />
+                  </svg>
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-outline-info"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseExample"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                  style={{}}
+                  onClick={() => this.onUpdate(data.dataId)}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-caret-right"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 12.796L11.481 8 6 3.204v9.592zm.659.753l5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </li>
+          </ul>
+        );
+      }
+    });
+  }
+  loadDataStatusDoing() {
+    return this.state.Data.map((data) => {
+      let status = data.dataStatus;
+      if (status == 2) {
+        return (
+          <ul class="list-group">
+            <li class="list-group-item">
+              {data.dataName}{" "}
+              <span style={{ float: "right" }}>
+                <button
+                  class="btn btn-outline-info"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseExample"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                  style={{}}
+                  onClick={() => this.onReverse(data.dataId)}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-caret-left"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 12.796L4.519 8 10 3.204v9.592zm-.659.753l-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"
+                    />
+                  </svg>
+                </button>
+                &nbsp;
+                <Link
+                  type="button"
+                  class="btn btn-outline-secondary"
+                  to={"/edit/data/" + data.dataId}
+                  style={{}}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-pencil-square"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                    />
+                  </svg>
+                </Link>
+                &nbsp;
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  style={{}}
+                  onClick={() => this.onDelete(data.dataId)}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-trash"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                    />
+                  </svg>
+                </button>
+                &nbsp;
+                <button
+                  class="btn btn-outline-info"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseExample"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                  style={{}}
+                  onClick={() => this.onUpdate(data.dataId)}
+                >
+                  <svg
+                    width="1em"
+                    height="1em"
+                    viewBox="0 0 16 16"
+                    class="bi bi-caret-right"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M6 12.796L11.481 8 6 3.204v9.592zm.659.753l5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"
+                    />
+                  </svg>
+                </button>
+              </span>
+            </li>
+          </ul>
+        );
+      }
+    });
+  }
+
+  async onReverse(dataId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will not be able to change this Data",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Update it!",
+      cancelButtonText: "No, keep it",
+    }).then((result) => {
+      if (result.value) {
+        this.sendReverse(dataId);
+        this.fetchData();
+        this.listData();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your Data is Stay in TO-DO :)", "error");
+      }
+    });
+  }
+  sendReverse(userId) {
+    const datapost = {
+      dataStatus: 1,
+    };
+    axios
+      .post("/api/update/status/data/" + userId, datapost)
+      .then((response) => {
+        if (response.data.success) {
+          Swal.fire(
+            "Updated!",
+            "Your Data has changed to To-DO List.",
+            "success"
+          );
+        }
+      })
+      .catch((error) => {
+        alert("Error 325 ");
+      });
+  }
+  async onUpdate(dataId) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will not be able to change this Data",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Update it!",
+      cancelButtonText: "No, keep it",
+    }).then((result) => {
+      if (result.value) {
+        this.sendUpdate(dataId);
+        this.fetchData();
+        this.listData();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your Data is Stay in TO-DO :)", "error");
+      }
+    });
+  }
+  sendUpdate(userId) {
+    const datapost = {
+      dataStatus: 2,
+    };
+    axios
+      .post("/api/update/status/data/" + userId, datapost)
+      .then((response) => {
+        if (response.data.success) {
+          Swal.fire(
+            "Updated!",
+            "Your Data has changed to Doing List.",
+            "success"
+          );
+        }
+      })
+      .catch((error) => {
+        alert("Error 325 ");
+      });
+  }
+
   async onDelete(dataId) {
     Swal.fire({
       title: "Are you sure?",
       text: "You will not be able to recover this Data",
       type: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
     }).then((result) => {
       if (result.value) {
