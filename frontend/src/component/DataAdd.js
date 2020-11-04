@@ -16,7 +16,7 @@ class DataAdd extends React.Component {
         <div class="text-right" style={{ marginTop: "10px" }}>
           <button
             type="button"
-            class="btn btn-info"
+            class="btn btn-outline-secondary"
             data-toggle="modal"
             data-target="#dataAdd"
           >

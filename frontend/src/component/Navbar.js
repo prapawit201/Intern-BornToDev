@@ -68,13 +68,6 @@ class Navbar extends React.Component {
             <DropdownMenu aria-labelledby="dropdownMenuButton">
               <DropdownItem>
                 {" "}
-                <Link to="/setting" className="nav-link">
-                  Setting
-                </Link>
-              </DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>
-                {" "}
                 <a
                   href=""
                   onClick={this.logOut.bind(this)}

@@ -6,7 +6,8 @@ import home from "./page/Home";
 import login from "./page/Login";
 import register from "./page/Register";
 import main from "./page/Main";
-import editData from "./component/DataEdit"
+import editData from "./component/DataEdit";
+import history from "./component/DataHistory";
 function App() {
   return (
     <div className="App">
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/login" component={login} />
         <Route exact path="/register" component={register} />
         <Route exact path="/main" component={main} />
+        <Route exact path="/history" component={history} />
         <Route exact path="/edit/data/:dataId" component={editData} />
       </Switch>
     </div>
