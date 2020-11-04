@@ -21,6 +21,9 @@ const Account = db.define(
       type: Sequelize.BOOLEAN,
       defaultValue: true,
     },
+    dataDate: {
+      type: Sequelize.STRING,
+    },
   },
   {
     freezeTableName: true,

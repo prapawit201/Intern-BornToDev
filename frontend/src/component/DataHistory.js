@@ -10,6 +10,7 @@ class DataHistory extends React.Component {
     this.state = {
       dataName: "",
       dataValue: "",
+      dataDate: "",
       Data: [],
     };
   }
@@ -49,6 +50,7 @@ class DataHistory extends React.Component {
             <div class="card-body">
               <h5 class="card-title">{data.dataName}</h5>
               <p class="card-text">{data.dataValue}</p>
+              <p class="card-text">{data.dataDate}</p>
             </div>
             <div>
               {" "}

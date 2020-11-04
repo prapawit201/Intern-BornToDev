@@ -7,7 +7,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
-import pic from "../image/pic.jpeg";
+import pic1 from "../image/pic1.jpeg";
 import iconPerson from "../image/pic1.jpeg";
 
 class Navbar extends React.Component {
@@ -84,9 +84,10 @@ class Navbar extends React.Component {
     return (
       <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <a class="navbar-brand" href="#">
-            Navbar
-          </a>
+          <img src={pic1} width="30px" />
+          <Link to={"/main"} class="navbar-brand">
+            To-DO WEB
+          </Link>
           <button
             class="navbar-toggler"
             type="button"
@@ -98,38 +99,11 @@ class Navbar extends React.Component {
           >
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  Home <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Features
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Pricing
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link disabled"
-                  href="#"
-                  tabindex="-1"
-                  aria-disabled="true"
-                >
-                  Disabled
-                </a>
-              </li>
-            </ul>
-          </div>
+
           <div
             className="collapse navbar-collapse justify-content-md-center"
             id="navbarsExample10"
+            style={{ marginLeft: "700px" }}
           >
             <ul className="navbar-nav"></ul>
             {localStorage.usertoken ? userLink : loginRegLink}

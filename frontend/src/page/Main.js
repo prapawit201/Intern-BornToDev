@@ -699,7 +699,6 @@ class Main extends Component {
       if (result.value) {
         this.sendDelete(dataId);
         this.fetchData();
-        this.listData();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire("Cancelled", "Your Data is safe :)", "error");
       }

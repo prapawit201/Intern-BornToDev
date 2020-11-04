@@ -72,6 +72,7 @@ controllers.create = async (req, res) => {
     dataName: req.body.dataName,
     dataValue: req.body.dataValue,
     dataStatus: req.body.status,
+    dataDate: req.body.dataDate,
   })
 
     .then(function (data) {

@@ -1,7 +1,6 @@
 // import React from "react";
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../component/Navbar";
 import pic from "../image/Scrum.png";
 import "../App.css";
 export default class OutlinedButtons extends React.Component {
