@@ -99,6 +99,8 @@ controllers.list = async (req, res) => {
       return error;
     });
 
+    let test ;
+    let temp = []
   // console.log(data);
   res.json({ success: true, data: data });
 };
