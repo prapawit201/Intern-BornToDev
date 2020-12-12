@@ -24,6 +24,9 @@ const Account = db.define(
     dataDate: {
       type: Sequelize.STRING,
     },
+    date: {
+      type: Sequelize.STRING,
+    },
   },
   {
     freezeTableName: true,

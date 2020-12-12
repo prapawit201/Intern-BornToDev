@@ -1,3 +1,4 @@
+const moment = require("moment");
 var sequelize = require("../database/config");
 var Data = require("../model/data");
 
@@ -26,7 +27,7 @@ controllers.updateStatus = async (req, res) => {
     .then(function (data) {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       return error;
     });
   res.json({ success: true, data: data, message: "Updated successful" });
@@ -46,7 +47,7 @@ controllers.update = async (req, res) => {
     .then(function (data) {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       return error;
     });
   res.json({ success: true, data: data, message: "Updated successful" });
@@ -60,7 +61,7 @@ controllers.get = async (req, res) => {
     .then(function (data) {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       return error;
     });
   res.json({ success: true, data: data });
@@ -68,17 +69,21 @@ controllers.get = async (req, res) => {
 
 controllers.create = async (req, res) => {
   // create
+  const date = new Date();
+  const formatDate = moment(date).format("DD/MM/YYYY, hh:mm:ss");
+  console.log(formatDate);
   const data = await Data.create({
     dataName: req.body.dataName,
     dataValue: req.body.dataValue,
     dataStatus: req.body.status,
-    dataDate: req.body.dataDate,
+    dataDate: formatDate,
+    date: moment(date).format("DD/MM/YYYY"),
   })
 
     .then(function (data) {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       console.log("Error " + error);
       return error;
     });
@@ -95,12 +100,12 @@ controllers.list = async (req, res) => {
     .then(function (data) {
       return data;
     })
-    .catch((error) => {
+    .catch(error => {
       return error;
     });
 
-    let test ;
-    let temp = []
+  let test;
+  let temp = [];
   // console.log(data);
   res.json({ success: true, data: data });
 };

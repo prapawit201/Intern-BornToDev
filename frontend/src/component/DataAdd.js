@@ -8,7 +8,6 @@ class DataAdd extends React.Component {
     this.state = {
       dataName: "",
       dataValue: "",
-      dataDate: "",
     };
   }
   render() {
@@ -88,18 +87,7 @@ class DataAdd extends React.Component {
                       }
                     />
                   </FormGroup>
-                  <FormGroup>
-                    <label for="date">date:</label>
-                    <Input
-                      type="date"
-                      id="date"
-                      name="date"
-                      value={this.state.dataDate}
-                      onChange={(value) =>
-                        this.setState({ dataDate: value.target.value })
-                      }
-                    />
-                  </FormGroup>
+                  
                 </Form>
               </div>
               <div class="modal-footer">
@@ -127,14 +115,11 @@ class DataAdd extends React.Component {
       alert("Error input Data Name");
     } else if (this.state.dataValue === "") {
       alert("Error input Data Value");
-    } else if (this.state.dateDate === "") {
-      alert("Error input Data Date");
-    }
+    } 
     let token = localStorage.getItem("usertoken");
     const datapost = {
       dataName: this.state.dataName,
       dataValue: this.state.dataValue,
-      dataDate: this.state.dataDate,
     };
 
     const headers = {
