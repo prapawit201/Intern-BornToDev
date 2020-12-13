@@ -7,7 +7,7 @@ import DataAdd from "../component/DataAdd";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-
+import moment from "moment";
 import "../App.css";
 class Main extends Component {
   constructor() {
@@ -35,6 +35,8 @@ class Main extends Component {
     this.loadDataStatusDone();
     this.loadDataDate();
     this.fetchData();
+    console.log(this.state.date);
+    console.log(moment()._d);
   }
 
   fetchData = () => {
@@ -166,7 +168,7 @@ class Main extends Component {
     return this.state.Data.map(data => {
       let status = data.date;
       if (status == "13/12/2020") {
-        return <div>hihi</div>;
+        return <div>hihi </div>;
       }
     });
   }
