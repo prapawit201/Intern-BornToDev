@@ -96,6 +96,10 @@ controllers.create = async (req, res) => {
 };
 
 controllers.list = async (req, res) => {
+  const date = new Date();
+  const formatDate = moment(date).format("DD/MM/YYYY, hh:mm:ss ");
+  console.log(formatDate);
+  console.log(date);
   const data = await Data.findAll({})
     .then(function (data) {
       return data;
@@ -103,10 +107,6 @@ controllers.list = async (req, res) => {
     .catch(error => {
       return error;
     });
-
-  let test;
-  let temp = [];
-  // console.log(data);
   res.json({ success: true, data: data });
 };
 

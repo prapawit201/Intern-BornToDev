@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
 import Navbar from "../component/Navbar";
-import { Table, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "../config/base_axios";
 import DataAdd from "../component/DataAdd";
 import Swal from "sweetalert2/dist/sweetalert2.js";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+
 import "../App.css";
 class Main extends Component {
   constructor() {
@@ -13,8 +15,10 @@ class Main extends Component {
     this.state = {
       fName: "",
       username: "",
+      date: new Date(),
       Data: [],
       errors: {},
+      fetchDate: [],
     };
   }
 
@@ -26,10 +30,11 @@ class Main extends Component {
       lName: decoded.lName,
       username: decoded.username,
     });
-    this.fetchData();
     this.loadDataStatusDo();
     this.loadDataStatusDoing();
     this.loadDataStatusDone();
+    this.loadDataDate();
+    this.fetchData();
   }
 
   fetchData = () => {
@@ -40,14 +45,19 @@ class Main extends Component {
           Authorization: token,
         },
       })
-      .then((res) => {
+      .then(res => {
         if (res.data.data) {
           const data = res.data.data;
           this.setState({ Data: data });
         }
       });
   };
+  onChange = date => {
+    this.setState({ date: date });
+  };
+
   render() {
+    let time = this.state.date;
     return (
       <div>
         <Navbar />
@@ -89,9 +99,20 @@ class Main extends Component {
                 </svg>{" "}
                 History
               </Link>{" "}
-          
             </span>
           </div>
+        </div>
+        <div>
+          <center>
+            {" "}
+            <Calendar
+              showNavigation
+              onChange={this.onChange}
+              value={this.state.date}
+            />
+            {time.toString()}
+            {this.loadDataDate()}
+          </center>
         </div>
         <div style={{ marginLeft: "50px", marginRight: "50px" }}>
           <div class="row" style={{ marginTop: "60px" }}>
@@ -141,8 +162,16 @@ class Main extends Component {
       </div>
     );
   }
+  loadDataDate() {
+    return this.state.Data.map(data => {
+      let status = data.date;
+      if (status == "13/12/2020") {
+        return <div>hihi</div>;
+      }
+    });
+  }
   loadDataStatusDo() {
-    return this.state.Data.map((data) => {
+    return this.state.Data.map(data => {
       let status = data.dataStatus;
       if (status == 1) {
         return (
@@ -226,7 +255,7 @@ class Main extends Component {
     });
   }
   loadDataStatusDoing() {
-    return this.state.Data.map((data) => {
+    return this.state.Data.map(data => {
       let status = data.dataStatus;
       if (status == 2) {
         return (
@@ -335,7 +364,7 @@ class Main extends Component {
     });
   }
   loadDataStatusDone() {
-    return this.state.Data.map((data) => {
+    return this.state.Data.map(data => {
       let status = data.dataStatus;
       if (status == 3) {
         return (
@@ -427,7 +456,7 @@ class Main extends Component {
       showCancelButton: true,
       confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.sendReverseDone(dataId);
         this.fetchData();
@@ -442,7 +471,7 @@ class Main extends Component {
     };
     axios
       .post("/api/update/status/data/" + userId, datapost)
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           Swal.fire(
             "Updated!",
@@ -451,7 +480,7 @@ class Main extends Component {
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("Error 325 ");
       });
   }
@@ -463,7 +492,7 @@ class Main extends Component {
       showCancelButton: true,
       confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.sendReverseDoing(dataId);
         this.fetchData();
@@ -478,7 +507,7 @@ class Main extends Component {
     };
     axios
       .post("/api/update/status/data/" + userId, datapost)
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           Swal.fire(
             "Updated!",
@@ -487,7 +516,7 @@ class Main extends Component {
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("Error 325 ");
       });
   }
@@ -499,7 +528,7 @@ class Main extends Component {
       showCancelButton: true,
       confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.sendReverse(dataId);
         this.fetchData();
@@ -514,7 +543,7 @@ class Main extends Component {
     };
     axios
       .post("/api/update/status/data/" + userId, datapost)
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           Swal.fire(
             "Updated!",
@@ -523,7 +552,7 @@ class Main extends Component {
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("Error 325 ");
       });
   }
@@ -535,7 +564,7 @@ class Main extends Component {
       showCancelButton: true,
       confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.sendUpdateDoing(dataId);
         this.fetchData();
@@ -550,7 +579,7 @@ class Main extends Component {
     };
     axios
       .post("/api/update/status/data/" + userId, datapost)
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           Swal.fire(
             "Updated!",
@@ -559,7 +588,7 @@ class Main extends Component {
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("Error 325 ");
       });
   }
@@ -572,7 +601,7 @@ class Main extends Component {
       showCancelButton: true,
       confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.sendUpdate(dataId);
         this.fetchData();
@@ -587,7 +616,7 @@ class Main extends Component {
     };
     axios
       .post("/api/update/status/data/" + userId, datapost)
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           Swal.fire(
             "Updated!",
@@ -596,7 +625,7 @@ class Main extends Component {
           );
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("Error 325 ");
       });
   }
@@ -609,7 +638,7 @@ class Main extends Component {
       showCancelButton: true,
       confirmButtonText: "Yes, Update it!",
       cancelButtonText: "No, keep it",
-    }).then((result) => {
+    }).then(result => {
       if (result.value) {
         this.sendDelete(dataId);
         this.fetchData();
@@ -623,12 +652,12 @@ class Main extends Component {
       .post("/api/delete/data", {
         dataId: userId,
       })
-      .then((response) => {
+      .then(response => {
         if (response.data.success) {
           Swal.fire("Deleted!", "Your Data has been deleted.", "success");
         }
       })
-      .catch((error) => {
+      .catch(error => {
         alert("Error 325 ");
       });
   }
