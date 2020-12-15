@@ -16,6 +16,7 @@ class Main extends Component {
       fName: "",
       username: "",
       date: new Date(),
+      time: "",
       Data: [],
       errors: {},
       fetchDate: [],
@@ -25,6 +26,7 @@ class Main extends Component {
   componentDidMount() {
     const token = localStorage.usertoken;
     const decoded = jwt_decode(token);
+
     this.setState({
       fName: decoded.fName,
       lName: decoded.lName,
@@ -54,10 +56,11 @@ class Main extends Component {
   };
   onChange = date => {
     this.setState({ date: date });
+    console.log(this.state.time);
   };
 
   render() {
-    let time = this.state.date;
+    this.state.time = this.state.date.toLocaleDateString();
     return (
       <div>
         <Navbar />
@@ -110,7 +113,7 @@ class Main extends Component {
               onChange={this.onChange}
               value={this.state.date}
             />
-            {time.toLocaleDateString()}
+            {this.state.time}
             {this.loadDataDate()}
           </center>
         </div>
