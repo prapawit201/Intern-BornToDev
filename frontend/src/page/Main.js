@@ -35,8 +35,6 @@ class Main extends Component {
     this.loadDataStatusDone();
     this.loadDataDate();
     this.fetchData();
-    console.log(this.state.date);
-    console.log(moment()._d);
   }
 
   fetchData = () => {
@@ -112,7 +110,7 @@ class Main extends Component {
               onChange={this.onChange}
               value={this.state.date}
             />
-            {time.toString()}
+            {time.toLocaleDateString()}
             {this.loadDataDate()}
           </center>
         </div>

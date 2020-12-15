@@ -70,14 +70,16 @@ controllers.get = async (req, res) => {
 controllers.create = async (req, res) => {
   // create
   const date = new Date();
-  const formatDate = moment(date).format("DD/MM/YYYY, hh:mm:ss");
+  const formatDate = moment(date)
+    .add(543, "year")
+    .format("DD/MM/YYYY, hh:mm:ss");
   console.log(formatDate);
   const data = await Data.create({
     dataName: req.body.dataName,
     dataValue: req.body.dataValue,
     dataStatus: req.body.status,
     dataDate: formatDate,
-    date: moment(date).format("DD/MM/YYYY"),
+    date: moment(date).add(543, "year").format("DD/MM/YYYY"),
   })
 
     .then(function (data) {
