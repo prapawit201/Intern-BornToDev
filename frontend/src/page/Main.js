@@ -18,8 +18,9 @@ class Main extends Component {
       date: new Date(),
       time: "",
       Data: [],
+      DataEachDay:[],
       errors: {},
-      fetchDate: [],
+      status : false,
     };
   }
 
@@ -39,19 +40,30 @@ class Main extends Component {
     this.fetchData();
   }
 
-  fetchData = () => {
+   fetchData = () => {
     let token = localStorage.getItem("usertoken");
     axios
       .get("/api/list/data", {
         headers: {
           Authorization: token,
         },
-      })
+      }) 
       .then(res => {
         if (res.data.data) {
           const data = res.data.data;
           this.setState({ Data: data });
+          for (let index = 0; index < this.state.Data.length; index++) {
+            let temp = ""
+            if (this.state.Data[index].date == this.state.time) {
+              this.setState({status : true})
+              temp = this.state.Data[index]
+            }
+            this.state.DataEachDay.push(temp)
+            
+          }
         }
+       
+        console.log(this.state.Data);
       });
   };
   onChange = date => {
@@ -59,8 +71,11 @@ class Main extends Component {
     console.log(this.state.time);
   };
 
+
+ 
+
   render() {
-    this.state.time = this.state.date.toLocaleDateString();
+    this.state.time = moment(this.state.date.toLocaleDateString()).add(543, "year").format("DD/MM/YYYY");
     return (
       <div>
         <Navbar />
@@ -113,11 +128,11 @@ class Main extends Component {
               onChange={this.onChange}
               value={this.state.date}
             />
-            {this.state.time}
-            {this.loadDataDate()}
+            
+            {console.log(this.state.time)}
           </center>
         </div>
-        <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+        {this.state.status?<div style={{ marginLeft: "50px", marginRight: "50px" }}>
           <div class="row" style={{ marginTop: "60px" }}>
             <div
               class="col-sm-4"
@@ -161,7 +176,7 @@ class Main extends Component {
               {this.loadDataStatusDone()}
             </div>
           </div>
-        </div>
+        </div>:<h1>hello</h1>}
       </div>
     );
   }
