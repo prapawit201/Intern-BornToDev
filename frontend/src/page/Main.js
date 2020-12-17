@@ -33,14 +33,11 @@ class Main extends Component {
       lName: decoded.lName,
       username: decoded.username,
     });
-    this.loadDataStatusDo();
-    this.loadDataStatusDoing();
-    this.loadDataStatusDone();
-    this.loadDataDate();
     this.fetchData();
+    this.loadDataDate();
   }
 
-   fetchData = () => {
+  fetchData = () =>  {
     let token = localStorage.getItem("usertoken");
     axios
       .get("/api/list/data", {
@@ -52,144 +49,43 @@ class Main extends Component {
         if (res.data.data) {
           const data = res.data.data;
           this.setState({ Data: data });
+          let temp=[] ;
+          let test
           for (let index = 0; index < this.state.Data.length; index++) {
-            let temp = ""
-            if (this.state.Data[index].date == this.state.time) {
-              this.setState({status : true})
-              temp = this.state.Data[index]
-            }
-            this.state.DataEachDay.push(temp)
             
-          }
+            if (this.state.Data[index].date == this.state.time) {
+              
+              this.setState({status : true})
+              test = this.state.Data[index]
+              temp.push(test)
+            }
+            
         }
-       
-        console.log(this.state.Data);
+          this.setState({DataEachDay:temp})
+          console.log(this.state.DataEachDay);
+        }
+        
       });
   };
   onChange = date => {
     this.setState({ date: date });
-    console.log(this.state.time);
   };
-
-
- 
-
-  render() {
-    this.state.time = moment(this.state.date.toLocaleDateString()).add(543, "year").format("DD/MM/YYYY");
-    return (
-      <div>
-        <Navbar />
-        <center>
-          <span style={{ fontSize: "70px" }}>To-DO List </span>
-        </center>{" "}
-        <div className="" style={{ marginRight: "150px", marginTop: "30px" }}>
-          <span>
-            <DataAdd />
-          </span>
-
-          <div>
-            <span style={{ float: "right", paddingTop: "10px" }}>
-              {" "}
-              <Link
-                to={"/history"}
-                type="button"
-                class="btn btn-outline-warning"
-              >
-                <svg
-                  width="1em"
-                  height="1em"
-                  viewBox="0 0 16 16"
-                  class="bi bi-card-list"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"
-                  />
-                  <path
-                    fill-rule="evenodd"
-                    d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"
-                  />
-                  <circle cx="3.5" cy="5.5" r=".5" />
-                  <circle cx="3.5" cy="8" r=".5" />
-                  <circle cx="3.5" cy="10.5" r=".5" />
-                </svg>{" "}
-                History
-              </Link>{" "}
-            </span>
-          </div>
-        </div>
-        <div>
-          <center>
-            {" "}
-            <Calendar
-              showNavigation
-              onChange={this.onChange}
-              value={this.state.date}
-            />
-            
-            {console.log(this.state.time)}
-          </center>
-        </div>
-        {this.state.status?<div style={{ marginLeft: "50px", marginRight: "50px" }}>
-          <div class="row" style={{ marginTop: "60px" }}>
-            <div
-              class="col-sm-4"
-              style={{
-                backgroundColor: "#FBF1D5",
-                height: "500px",
-                width: "300px",
-              }}
-            >
-              <center>
-                <span id="toDo">To Do</span>
-              </center>
-              <hr />
-              {/* {this.listData()} */}
-              {this.loadDataStatusDo()}
-            </div>
-            <div
-              class="col-sm-4"
-              style={{
-                backgroundColor: "#FCDEE2",
-                height: "500px",
-              }}
-            >
-              <center>
-                <span id="toDo">Doing</span>
-              </center>
-              <hr />
-              {this.loadDataStatusDoing()}
-            </div>
-            <div
-              class="col-sm-4"
-              style={{
-                backgroundColor: "#E2D0DC",
-                height: "500px",
-              }}
-            >
-              <center>
-                <span id="toDo">Done</span>
-              </center>
-              <hr />
-              {this.loadDataStatusDone()}
-            </div>
-          </div>
-        </div>:<h1>hello</h1>}
-      </div>
-    );
-  }
   loadDataDate() {
+    this.state.time = moment(this.state.date.toLocaleDateString()).add(543, "year").format("DD/MM/YYYY");
+    
     return this.state.Data.map(data => {
       let status = data.date;
+    
       if (status == "13/12/2020") {
         return <div>hihi </div>;
+      }else{
+        return <h1>Bye</h1>
       }
+
     });
   }
-  loadDataStatusDo() {
-    return this.state.Data.map(data => {
+  loadDataStatusDo() {;
+    return this.state.DataEachDay.map(data => {
       let status = data.dataStatus;
       if (status == 1) {
         return (
@@ -272,6 +168,114 @@ class Main extends Component {
       }
     });
   }
+  render() {
+    this.loadDataDate()
+    this.loadDataStatusDo()
+    return (
+      <div>
+        <Navbar />
+        <center>
+          <span style={{ fontSize: "70px" }}>To-DO List </span>
+        </center>{" "}
+        <div className="" style={{ marginRight: "150px", marginTop: "30px" }}>
+          <span>
+            <DataAdd />
+          </span>
+
+          <div>
+            <span style={{ float: "right", paddingTop: "10px" }}>
+              {" "}
+              <Link
+                to={"/history"}
+                type="button"
+                class="btn btn-outline-warning"
+              >
+                <svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-card-list"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8zm0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5z"
+                  />
+                  <circle cx="3.5" cy="5.5" r=".5" />
+                  <circle cx="3.5" cy="8" r=".5" />
+                  <circle cx="3.5" cy="10.5" r=".5" />
+                </svg>{" "}
+                History
+              </Link>{" "}
+            </span>
+          </div>
+        </div>
+        <div>
+          <center>
+            {" "}
+            <Calendar
+              showNavigation
+              onChange={this.onChange}
+              value={this.state.date}
+            />
+            {this.loadDataDate()}
+  
+          </center>
+        </div>
+        {this.state.status?<div style={{ marginLeft: "50px", marginRight: "50px" }}>
+          <div class="row" style={{ marginTop: "60px" }}>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#FBF1D5",
+                height: "500px",
+                width: "300px",
+              }}
+            >
+              <center>
+                <span id="toDo">To Do</span>
+              </center>
+              <hr />
+              {/* {this.listData()} */}
+              {this.loadDataStatusDo()}
+            </div>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#FCDEE2",
+                height: "500px",
+              }}
+            >
+              <center>
+                <span id="toDo">Doing</span>
+              </center>
+              <hr />
+              {this.loadDataStatusDoing()}
+            </div>
+            <div
+              class="col-sm-4"
+              style={{
+                backgroundColor: "#E2D0DC",
+                height: "500px",
+              }}
+            >
+              <center>
+                <span id="toDo">Done</span>
+              </center>
+              <hr />
+              {this.loadDataStatusDone()}
+            </div>
+          </div>
+        </div>:<h1>hello</h1>}
+      </div>
+    );
+  }
+ 
   loadDataStatusDoing() {
     return this.state.Data.map(data => {
       let status = data.dataStatus;
